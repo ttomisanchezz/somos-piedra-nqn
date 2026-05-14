@@ -1,0 +1,67 @@
+Necesito que rediseñes/mejores la landing actual de Somos Piedra usando las fotos reales que voy a adjuntar como material visual principal.
+
+Contexto:
+La web es para “Somos Piedra”, una marca de piedra natural, revestimientos, lajas, piedras decorativas, vivero, césped, árboles, macetas, fuentes y decoración exterior/interior.
+
+Objetivo:
+Quiero que toda la web deje de sentirse genérica y empiece a verse construida con material real de la marca. Las fotos que voy a adjuntar deben usarse estratégicamente en toda la landing para reforzar confianza, mostrar productos reales y darle más identidad visual.
+
+Instrucciones importantes:
+- Usá las fotos adjuntas en distintas secciones de la web, no solo en una galería.
+- Integralas de forma estética, premium y profesional.
+- No las pongas todas juntas sin criterio.
+- Seleccioná qué foto funciona mejor para cada sección según su contenido.
+- Mantené la estética actual de la landing: elegante, natural, clara, con tonos piedra, verdes suaves, beige, blanco cálido y detalles premium.
+- La web debe sentirse moderna, editorial, natural y confiable.
+- Evitá que parezca un catálogo viejo o un feed pegado sin diseño.
+- Priorizá buena composición, jerarquía visual, espacios respirables y coherencia entre secciones.
+- Adaptá todo correctamente a mobile.
+
+Dónde usar las fotos:
+1. Hero principal:
+   - Usar una imagen potente relacionada con piedra/revestimiento/obra terminada.
+   - Debe transmitir “piedra natural para tu obra”.
+   - Aplicar overlay si hace falta para que el texto se lea bien.
+
+2. Sección de productos:
+   - Usar fotos reales para representar categorías como:
+     - Revestimientos
+     - Piedras decorativas
+     - Lajas
+     - Césped
+     - Vivero
+     - Fuentes/decoración
+
+3. Sección de aplicaciones:
+   - Mostrar cómo se usan los productos en frentes, jardines, paredes, pisos exteriores y patios.
+
+4. Sección de confianza:
+   - Usar fotos que muestren trabajos reales, stock, vivero o productos físicos.
+   - La idea es que el usuario sienta que la empresa existe, tiene productos reales y puede asesorarlo.
+
+5. Sección Instagram:
+   - Dejar preparada una sección llamada “También podés ver nuestro trabajo en Instagram” o “Inspiración real, productos reales”.
+   - Todavía NO uses fotos definitivas para esta sección si no están adjuntas.
+   - Aclaración: después voy a adjuntar fotos específicas que quiero utilizar para la sección de Instagram.
+   - Por ahora podés dejar placeholders elegantes o una estructura preparada para recibir esas imágenes.
+
+Sobre la sección de Instagram:
+Quiero que la sección tenga:
+- Título atractivo.
+- Subtítulo breve.
+- Grilla visual tipo Instagram, pero diseñada de manera premium.
+- 6 cards visuales.
+- Botón “Ver Instagram”.
+- Botón “Consultar por WhatsApp”.
+
+Instagram:
+https://www.instagram.com/viverosomospiedra/
+
+WhatsApp:
+https://wa.me/5492994637323
+
+Muy importante:
+No embeber Instagram directamente. No usar iframe. No depender de Meta. Quiero una sección visual estática, diseñada y optimizada, inspirada en el Instagram real.
+
+Resultado esperado:
+Una landing mucho más real, visual, confiable y comercial, usando las fotos adjuntas como base de identidad. Debe verse como una web premium de piedra natural y vivero, no como una plantilla genérica.

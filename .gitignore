@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Carpetas internas de herramientas
+.atl/
+.claude/
+
+# Archivos raíz que son duplicados (las copias canónicas están en public/)
+/fotos/
+/uploads/
+landing.v1.jsx
