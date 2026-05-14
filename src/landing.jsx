@@ -20,6 +20,7 @@ const Plus = (p) => <Icon {...p}><path d="M12 5v14" /><path d="M5 12h14" /></Ico
 const Minus = (p) => <Icon {...p}><path d="M5 12h14" /></Icon>;
 const X = (p) => <Icon {...p}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>;
 const Instagram = (p) => <Icon {...p}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></Icon>;
+const Facebook = (p) => <Icon {...p}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></Icon>;
 
 // ---------- Reveal hook (fade-up on scroll) ----------
 const useReveal = () => {
@@ -39,18 +40,22 @@ const useReveal = () => {
 };
 
 // ---------- Data ----------
-const WHATSAPP_NUMBER = '5492994637323';
-const buildWhatsAppLink = (m) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(m)}`;
+const WHATSAPP_NUMBER = '5492994637323'; // vivero / Instagram
+const WHATSAPP_NEGOCIO = '542994590936'; // consultas comerciales principales
+
+const buildWhatsAppLink = (m, number = WHATSAPP_NEGOCIO) => `https://wa.me/${number}?text=${encodeURIComponent(m)}`;
 const heroWhatsAppLink = buildWhatsAppLink('Hola Somos Piedra, vi su página y quería hacer una consulta sobre piedras. ¿Me pueden orientar?');
 
 const INSTAGRAM_URL = 'https://www.instagram.com/viverosomospiedra/';
-const igWaLink = buildWhatsAppLink('Hola Somos Piedra, vengo del Instagram y quería consultar por productos. ¿Me pueden orientar?');
+// TODO: reemplazar por URL real de Facebook
+const FACEBOOK_URL = '#';
+const igWaLink = buildWhatsAppLink('Hola Somos Piedra, vengo del Instagram y quería consultar por productos. ¿Me pueden orientar?', WHATSAPP_NUMBER);
 
 // Cards del feed @viverosomospiedra — 4 fotos editoriales del vivero
 const igCards = [
 { cat: 'Vivero', titulo: 'Nuestro vivero', copy: 'Plantas, macetas y deco al atardecer en San Lorenzo y Güemes, Cinco Saltos.', img: '/fotos/real/ig-vivero-dusk.png', featured: true },
 { cat: 'Césped', titulo: 'Césped en panes', copy: 'Panes verdes recién cortados, listos para colocar.', img: '/fotos/real/ig-cesped-panes.png' },
-{ cat: 'Sustratos', titulo: 'Tierra fértil', copy: 'Bolsas de tierra y sustratos premium para plantar bien.', img: '/fotos/real/ig-tierra-bolsas.png' },
+{ cat: 'Sustratos', titulo: 'Tierra fértil', copy: 'Tierra fértil para plantar bien.', img: '/fotos/real/ig-tierra-bolsas.png' },
 { cat: 'Plantas', titulo: 'Flores & plantas', copy: 'Variedad de florales y plantines de temporada.', img: '/fotos/real/ig-plantas-flores.png' }];
 
 
@@ -59,7 +64,7 @@ const HERO_IMAGE_URL = '/fotos/real/hero-home-fondo.png';
 const HERO_IMAGE_SRCSET = null;
 
 const trustItems = [
-{ icon: MapPin, titulo: 'Neuquén y zona', text: 'Entregas coordinadas según volumen y distancia.' },
+{ icon: MapPin, titulo: 'Neuquén y zona', text: 'Entregas coordinadas según volumen y distancia. Si querés, también te lo cargamos sin costo adicional.' },
 { icon: MessageCircle, titulo: 'Asesoramiento real', text: 'Te ayudamos a elegir según uso, estilo y presupuesto.' },
 { icon: HardHat, titulo: 'Obra y hogar', text: 'Materiales para frentes, pisos, jardines y paredes.' },
 { icon: Ruler, titulo: 'Cotización por m²', text: 'Calculamos cantidad y precio aproximado.' }];
@@ -70,8 +75,8 @@ const productos = [
 { categoria: 'Lajas', tipo: 'lajas', titulo: 'Lajas naturales', descripcion: 'Cortes naturales para pisos exteriores, frentes y caminos. Veteado real, no impreso.', usos: 'piso · frente · camino', img: '/fotos/real/laja-bariloche-topdown.webp', mensajeWa: 'Hola, me interesan las lajas naturales. ¿Qué opciones tienen y cuánto sale el m²?' },
 { categoria: 'Decorativas', tipo: 'decorativa', titulo: 'Piedras decorativas', descripcion: 'Granzas, canto rodado y piedra partida para canteros, caminos y jardines.', usos: 'jardín · cantero · detalle', img: '/fotos/real/piedras-decorativas-hero.png', mensajeWa: 'Hola, quiero piedra decorativa para mi jardín. ¿Qué variedades manejan?' },
 { categoria: 'Frentes', tipo: 'frente', titulo: 'Piedra para frentes', descripcion: 'Materiales con peso visual y resistencia para fachadas que envejecen bien.', usos: 'fachada · entrada · muro', img: '/fotos/real/frente-cream-familia.jpg', mensajeWa: 'Hola, busco piedra para revestir el frente de mi casa. ¿Qué me recomiendan?' },
-{ categoria: 'Pisos exteriores', tipo: 'piso', titulo: 'Pisos exteriores', descripcion: 'Lajas Riojana, granito y opciones antideslizantes que aguantan heladas.', usos: 'patio · galería · entrada', img: '/fotos/real/piso-exterior-rojizo.png', mensajeWa: 'Hola, quiero hacer un piso exterior con piedra. ¿Qué materiales tienen?' },
-{ categoria: 'Piedra natural', tipo: 'natural', titulo: 'Piedra natural regional', descripcion: 'Variedades regionales y de importación, cortes a medida para tu proyecto.', usos: 'obra · proyecto · custom', img: '/fotos/real/revestimiento-split-1.jpg', mensajeWa: 'Hola, necesito piedra natural para un proyecto. ¿Pueden cortar a medida?' }];
+{ categoria: 'Pisos exteriores', tipo: 'piso', titulo: 'Pisos exteriores', descripcion: 'Lajas Riojana y opciones antideslizantes que aguantan heladas.', usos: 'patio · galería · entrada', img: '/fotos/real/piso-exterior-rojizo.png', mensajeWa: 'Hola, quiero hacer un piso exterior con piedra. ¿Qué materiales tienen?' },
+{ categoria: 'Piedra natural', tipo: 'natural', titulo: 'Piedra natural de la región', descripcion: 'Variedades de la región y de importación, cortes a medida para tu proyecto.', usos: 'obra · proyecto · custom', img: '/fotos/real/revestimiento-split-1.jpg', mensajeWa: 'Hola, necesito piedra natural para un proyecto. ¿Pueden cortar a medida?' }];
 
 
 const filtros = [
@@ -89,9 +94,9 @@ const aplicaciones = [
 { titulo: 'Jardines', copy: 'Texturas naturales para canteros, caminos y detalles.', img: '/fotos/real/jardines-hero.png' },
 { titulo: 'Paredes interiores', copy: 'Revestimientos cálidos para sumar carácter sin recargar.', img: '/fotos/real/interior-piedra-irregular.jpg' },
 { titulo: 'Pisos exteriores', copy: 'Opciones resistentes para sol, heladas y tránsito.', img: '/fotos/real/piso-laja-riojana-rojizo.jpg' },
-{ titulo: 'Quinchos', copy: 'Calidez visual y resistencia al fuego. La piedra que envejece bien.', img: '/fotos/real/hogar-cuarcita-living.jpg' },
-{ titulo: 'Hogares y chimeneas', copy: 'Cuarcita y piedra cálida que jerarquiza un living entero.', img: '/fotos/real/laja-vereda-beige.jpg' },
-{ titulo: 'Muros y cercos', copy: 'Piedra apilada para muros con textura y peso natural.', img: '/fotos/real/muro-slate-jardin.jpg' },
+{ titulo: 'Quinchos', copy: 'Calidez visual y resistencia al fuego. La piedra que envejece bien.', img: '/fotos/hogar-cuarcita-1.jpg' },
+{ titulo: 'Hogares y chimeneas', copy: 'Piedra riojana para hogares y chimeneas.', img: '/fotos/real/laja-vereda-beige.jpg' },
+{ titulo: 'Muros y cercos', copy: 'Piedras decorativas para jardines, muros y cercos.', img: '/fotos/real/muro-slate-jardin.jpg' },
 { titulo: 'Locales comerciales', copy: 'Materiales que comunican marca: sobrios, durables, premium.', img: '/fotos/real/frente-black-slate.jpg' }];
 
 
@@ -130,19 +135,19 @@ const resenas = [
 
 
 const faqs = [
-{ q: '¿Hacen envíos en Neuquén y zona?', a: 'Sí, coordinamos entregas en Neuquén capital, Plottier, Centenario, Cipolletti y alrededores. El costo depende del volumen y la distancia, te lo confirmamos al cotizar.' },
+{ q: '¿Hacen envíos en Neuquén y zona?', a: 'Sí, coordinamos entregas en Neuquén capital, Plottier, Centenario, Cipolletti y alrededores. El costo depende del volumen y la distancia, te lo confirmamos al cotizar. Si querés, también te lo cargamos sin costo adicional.' },
 { q: '¿Cuánto tarda una cotización?', a: 'Si nos pasás m² y zona por WhatsApp, te respondemos el mismo día hábil. Si necesitás visita al obra, coordinamos en 24-48 hs.' },
 { q: '¿Tienen mínimo de compra?', a: 'No tenemos un mínimo rígido. Para envíos a zona conviene combinar pedidos para optimizar el flete; te lo conversamos caso por caso.' },
 { q: '¿Cortan piedra a medida?', a: 'Sí, trabajamos cortes a medida en lajas y revestimientos según el proyecto. Necesitamos plano o medidas claras y un par de días de producción.' },
 { q: '¿Asesoran sin compromiso de compra?', a: 'Por supuesto. Si dudás entre dos materiales o no sabés qué te conviene, escribinos. Preferimos ayudarte a elegir bien antes que vender mal.' },
-{ q: '¿Atienden a arquitectos y constructores?', a: 'Sí, manejamos condiciones para profesionales y obras de mayor volumen. Avisanos si vas a comprar para un proyecto y lo coordinamos.' }];
+{ q: '¿Atienden a arquitectos y constructores?', a: 'Trabajamos con particulares, constructores y arquitectos. Manejamos condiciones para profesionales y obras de mayor volumen. Avisanos si vas a comprar para un proyecto y lo coordinamos.' }];
 
 
 const checklist = [
 'Tipo de proyecto (frente, jardín, pared...)',
 'Metros cuadrados aproximados',
 'Foto del espacio (si tenés)',
-'Material que te interesa (o no sé, asesorame)',
+'Contanos qué material te interesa, cuál viste o para qué espacio lo necesitás',
 'Ubicación / zona'];
 
 
@@ -867,6 +872,11 @@ function SomosPiedraLanding() {
               <HardHat size={13} strokeWidth={1.6} className="text-[#A8B97F]" />
               Envíos a toda la zona
             </div>
+            <span className="hidden sm:block w-px h-3.5 bg-white/30"></span>
+            <div className="flex items-center gap-1.5 font-body text-[12.5px] text-white/90">
+              <Phone size={13} strokeWidth={1.6} className="text-[#A8B97F]" />
+              2994152119
+            </div>
           </div>
         </div>
       </section>
@@ -1330,6 +1340,14 @@ function SomosPiedraLanding() {
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
                   className="text-[#F5F0E6]/85 hover:text-[#A8B97F] transition leading-snug">
                   @viverosomospiedra
+                </a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Facebook size={14} strokeWidth={1.5} className="text-[#A8B97F] mt-1 flex-shrink-0" />
+                {/* TODO: reemplazar por URL real de Facebook */}
+                <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer"
+                  className="text-[#F5F0E6]/85 hover:text-[#A8B97F] transition leading-snug">
+                  Somos Piedra
                 </a>
               </div>
             </div>
