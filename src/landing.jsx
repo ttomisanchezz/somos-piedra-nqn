@@ -1,4 +1,12 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { TextureOverlay } from '@/components/ui/texture-overlay';
+import { TextureButton } from '@/components/ui/texture-button';
+import { CutoutCard, CutoutCardMedia, CutoutCardImage, CutoutCardContent, CutoutCardFooter, CutoutCardAction, CutoutCardInsetLabel, cutoutCardSurfaceClassName } from '@/components/ui/cutout-card';
+import { EdgeBlur } from '@/components/ui/edge-blur';
+import { AnimatedNumber } from '@/components/ui/animated-number';
+import { Expandable, ExpandableTrigger, ExpandableContent } from '@/components/ui/expandable';
+import { FamilyDrawerRoot, FamilyDrawerPortal, FamilyDrawerOverlay, FamilyDrawerContent, FamilyDrawerAnimatedWrapper, FamilyDrawerAnimatedContent, FamilyDrawerClose } from '@/components/ui/family-drawer';
+import { cn } from '@/lib/utils';
 
 // ---------- Icons ----------
 const Icon = ({ children, size = 24, strokeWidth = 2, className = '', ...rest }) =>
@@ -608,28 +616,37 @@ function CatalogoSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {items.map((p, i) =>
-        <a key={p.titulo} href={buildWhatsAppLink(p.mensajeWa)} target="_blank" rel="noopener noreferrer"
-        className="group rounded-2xl overflow-hidden bg-[#EDE5D4] flex flex-col transition duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#1F1A14]/15">
-            <div className="aspect-[4/5] overflow-hidden bg-[#EDE5D4]">
-              <img src={p.img} alt={p.titulo} loading="lazy"
-            className="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]"
-            style={{ filter: 'saturate(0.92)' }} />
-            </div>
-            <div className="p-6 flex flex-col gap-3 flex-1">
-              <span className="text-[10px] font-body uppercase tracking-[0.2em] text-[#7A6E5E]">{p.categoria}</span>
-              <h3 className="font-display text-[22px] text-[#1F1A14] leading-tight tracking-tight" style={{ fontWeight: 500 }}>{p.titulo}</h3>
-              <p className="font-body text-[14px] text-[#3D352B] leading-snug"
-            style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {p.descripcion}
-              </p>
-              <div className="font-body text-[12px] text-[#7A6E5E] tracking-wide mt-auto pt-2">{p.usos}</div>
-              <div className="flex items-center justify-between pt-3 mt-1 border-t border-[#1F1A14]/10">
-                <span className="font-body text-[13px] font-medium text-[#5A6B3F] group-hover:text-[#4A5832] transition">Consultar material</span>
-                <ArrowRight size={15} className="text-[#5A6B3F] group-hover:text-[#4A5832] group-hover:translate-x-1 transition" />
-              </div>
-            </div>
-          </a>
+        {items.map((p) =>
+        <CutoutCard key={p.titulo} className={cn(cutoutCardSurfaceClassName, "bg-[#EDE5D4] flex flex-col")}>
+            <a href={buildWhatsAppLink(p.mensajeWa)} target="_blank" rel="noopener noreferrer" className="flex flex-col flex-1">
+              <CutoutCardMedia className="aspect-[4/5] bg-[#EDE5D4]">
+                <CutoutCardImage src={p.img} alt={p.titulo} style={{ filter: 'saturate(0.92)' }} />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/cutout:opacity-100 transition duration-500" />
+                <CutoutCardInsetLabel className="bottom-3 left-3">
+                  <span className="font-body text-[10px] uppercase tracking-[0.2em] text-[#7A6E5E] bg-[#EDE5D4]/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                    {p.categoria}
+                  </span>
+                </CutoutCardInsetLabel>
+                <CutoutCardAction revealOnHover className="bottom-3 right-3">
+                  <span className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium text-white bg-[#5A6B3F] px-3 py-1.5 rounded-full shadow-lg">
+                    Consultar <ArrowRight size={12} />
+                  </span>
+                </CutoutCardAction>
+              </CutoutCardMedia>
+              <CutoutCardContent className="p-6 flex flex-col gap-2.5 flex-1">
+                <h3 className="font-display text-[22px] text-[#1F1A14] leading-tight tracking-tight" style={{ fontWeight: 500 }}>{p.titulo}</h3>
+                <p className="font-body text-[14px] text-[#3D352B] leading-snug"
+                  style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  {p.descripcion}
+                </p>
+                <div className="font-body text-[12px] text-[#7A6E5E] tracking-wide mt-auto pt-2">{p.usos}</div>
+              </CutoutCardContent>
+              <CutoutCardFooter className="px-6 pb-5 pt-3 border-t border-[#1F1A14]/10">
+                <span className="font-body text-[13px] font-medium text-[#5A6B3F]">Consultar material</span>
+                <ArrowRight size={15} className="text-[#5A6B3F] group-hover/cutout:translate-x-1 transition" />
+              </CutoutCardFooter>
+            </a>
+          </CutoutCard>
         )}
       </div>
     </>);
@@ -754,49 +771,56 @@ function SomosPiedraLanding() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
-      {mobileMenuOpen &&
-      <div className="lg:hidden fixed inset-0 z-[60]" onClick={() => setMobileMenuOpen(false)}>
-        <div className="absolute inset-0 bg-[#1F1A14]/55 backdrop-blur-sm" />
-        <div className="absolute top-0 right-0 bottom-0 w-[82%] max-w-[340px] bg-[#F5F0E6] shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
-          <div className="flex items-center justify-between px-5 py-4 border-b border-[#1F1A14]/8">
-            <SomosPiedraLogo size={22} />
-            <button type="button" onClick={() => setMobileMenuOpen(false)} aria-label="Cerrar menú"
-              className="w-10 h-10 rounded-full flex items-center justify-center text-[#1F1A14] hover:bg-[#1F1A14]/5 transition">
-              <X size={18} />
-            </button>
-          </div>
-          <nav className="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-1 font-body text-[16px] text-[#1F1A14]">
-            {[
-              { href: '#productos', label: 'Productos' },
-              { href: '#aplicaciones', label: 'Aplicaciones' },
-              { href: '#instagram', label: 'Instagram' },
-              { href: '#opiniones', label: 'Opiniones' },
-              { href: '#proceso', label: 'Proceso' },
-              { href: '#faq', label: 'Preguntas frecuentes' },
-              { href: '#ubicacion', label: 'Ubicación' }
-            ].map((it) =>
-            <a key={it.href} href={it.href} onClick={() => setMobileMenuOpen(false)}
-              className="py-3 px-2 rounded-lg hover:bg-[#1F1A14]/5 transition flex items-center justify-between group">
-                <span>{it.label}</span>
-                <ArrowRight size={15} className="text-[#7A6E5E] group-hover:text-[#5A6B3F] group-hover:translate-x-0.5 transition" />
-              </a>
-            )}
-          </nav>
-          <div className="px-5 pb-7 pt-4 border-t border-[#1F1A14]/8 flex flex-col gap-2.5">
-            <a href="#cotizacion" onClick={(e) => {setMobileMenuOpen(false);scrollToCotizacion(e);}}
-              className="inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[14px] px-5 py-3 rounded-full transition">
-              <MessageCircle size={15} />
-              Pedir cotización
-            </a>
-            <a href={heroWhatsAppLink} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-[#1F1A14]/20 text-[#1F1A14] hover:border-[#5A6B3F] hover:text-[#5A6B3F] font-medium text-[13.5px] px-5 py-3 rounded-full transition">
-              WhatsApp directo
-            </a>
-          </div>
-        </div>
-      </div>
-      }
+      {/* Mobile drawer — FamilyDrawer (bottom sheet) */}
+      <FamilyDrawerRoot open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <FamilyDrawerPortal>
+          <FamilyDrawerOverlay />
+          <FamilyDrawerContent className="max-w-lg bg-[#F5F0E6]">
+            <FamilyDrawerAnimatedWrapper className="px-5 pb-7 pt-3">
+              <FamilyDrawerAnimatedContent>
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <SomosPiedraLogo size={22} />
+                    <FamilyDrawerClose>
+                      <X size={16} />
+                    </FamilyDrawerClose>
+                  </div>
+                  <nav className="flex flex-col gap-0.5 font-body text-[16px] text-[#1F1A14] mb-5">
+                    {[
+                      { href: '#productos', label: 'Productos' },
+                      { href: '#aplicaciones', label: 'Aplicaciones' },
+                      { href: '#instagram', label: 'Instagram' },
+                      { href: '#opiniones', label: 'Opiniones' },
+                      { href: '#proceso', label: 'Proceso' },
+                      { href: '#faq', label: 'Preguntas frecuentes' },
+                      { href: '#ubicacion', label: 'Ubicación' }
+                    ].map((it) =>
+                    <a key={it.href} href={it.href} onClick={() => setMobileMenuOpen(false)}
+                      className="py-3 px-2 rounded-xl hover:bg-[#1F1A14]/5 transition flex items-center justify-between group">
+                      <span>{it.label}</span>
+                      <ArrowRight size={15} className="text-[#7A6E5E] group-hover:text-[#5A6B3F] group-hover:translate-x-0.5 transition" />
+                    </a>
+                    )}
+                  </nav>
+                  <div className="flex flex-col gap-2.5 border-t border-[#1F1A14]/10 pt-5">
+                    <TextureButton variant="brand" size="pill" asChild>
+                      <a href="#cotizacion" onClick={(e) => { setMobileMenuOpen(false); scrollToCotizacion(e); }}
+                        className="inline-flex items-center justify-center gap-2 font-medium text-[14px]">
+                        <MessageCircle size={15} />
+                        Pedir cotización
+                      </a>
+                    </TextureButton>
+                    <a href={heroWhatsAppLink} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 border border-[#1F1A14]/20 text-[#1F1A14] hover:border-[#5A6B3F] hover:text-[#5A6B3F] font-medium text-[13.5px] px-5 py-3 rounded-full transition">
+                      WhatsApp directo
+                    </a>
+                  </div>
+                </div>
+              </FamilyDrawerAnimatedContent>
+            </FamilyDrawerAnimatedWrapper>
+          </FamilyDrawerContent>
+        </FamilyDrawerPortal>
+      </FamilyDrawerRoot>
 
       {/* HERO — ocupa exactamente 100dvh, sin que se vea la sección siguiente */}
       <section className="relative h-[100dvh] min-h-[600px] overflow-hidden">
@@ -822,10 +846,12 @@ function SomosPiedraLanding() {
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'radial-gradient(70% 60% at 26% 52%, rgba(31,26,20,0.42) 0%, rgba(31,26,20,0) 65%)'
         }} />
-        {/* Soft blend hacia la sección trust — más sutil ahora que hay banda flotante encima */}
+        {/* Soft blend hacia la sección trust */}
         <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{
           background: 'linear-gradient(180deg, rgba(245,240,230,0) 0%, rgba(245,240,230,0.20) 50%, rgba(245,240,230,0.55) 100%)'
         }} />
+        {/* EdgeBlur adicional en la transición hero → trust */}
+        <EdgeBlur position="bottom" height={90} absolute />
 
         <div className="relative z-10 h-full max-w-7xl mx-auto px-5 md:px-10 flex flex-col justify-center pt-16 pb-20">
           <div className="inline-flex self-start items-center gap-2 px-2.5 py-1 rounded-full bg-white/12 backdrop-blur-md border border-white/22 mb-5 fade-up delay-100">
@@ -843,12 +869,14 @@ function SomosPiedraLanding() {
           </p>
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3 fade-up delay-700">
-            <a href="#cotizacion" onClick={scrollToCotizacion}
-            className="group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[14px] md:text-[15px] px-5 md:px-6 py-3 md:py-3.5 rounded-full transition shadow-lg shadow-black/20">
-              <MessageCircle size={16} />
-              Pedir asesoramiento
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition" />
-            </a>
+            <TextureButton variant="brand" size="pill" asChild>
+              <a href="#cotizacion" onClick={scrollToCotizacion}
+                className="inline-flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] px-6 py-3.5">
+                <MessageCircle size={16} />
+                Pedir asesoramiento
+                <ArrowRight size={16} />
+              </a>
+            </TextureButton>
             <a href="#productos"
             className="inline-flex items-center justify-center gap-1.5 text-white font-medium text-[14px] md:text-[15px] px-2 py-3 transition hover:text-[#A8B97F] border-b border-white/40 self-start sm:self-center">
               Ver catálogo
@@ -860,7 +888,13 @@ function SomosPiedraLanding() {
           <div className="mt-9 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 fade-up delay-700">
             <div className="flex items-center gap-2">
               <Stars n={4} size={13} />
-              <span className="font-body text-[12.5px] text-white/95"><span className="font-semibold text-white">4,4</span><span className="text-white/60"> · </span>22 reseñas Google</span>
+              <span className="font-body text-[12.5px] text-white/95">
+                <span className="font-semibold text-white">
+                  <AnimatedNumber value={4.4} precision={1} format={(n) => n.toFixed(1).replace('.', ',')} />
+                </span>
+                <span className="text-white/60"> · </span>
+                <AnimatedNumber value={22} /> reseñas Google
+              </span>
             </div>
             <span className="hidden sm:block w-px h-3.5 bg-white/30"></span>
             <div className="flex items-center gap-1.5 font-body text-[12.5px] text-white/90">
@@ -924,6 +958,7 @@ function SomosPiedraLanding() {
 
       {/* APLICACIONES */}
       <section id="aplicaciones" className="relative bg-[#1F1A14] text-[#F5F0E6] py-20 md:py-24 px-6 md:px-10">
+        <TextureOverlay texture="diagonal" opacity={0.05} />
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Aplicaciones</div>
@@ -1102,7 +1137,9 @@ function SomosPiedraLanding() {
             </div>
             <div className="md:justify-self-end max-w-md">
               <div className="flex items-center gap-4 mb-3">
-                <span className="font-display text-[44px] leading-none text-[#1F1A14]" style={{ fontWeight: 600 }}>4,4</span>
+                <span className="font-display text-[44px] leading-none text-[#1F1A14]" style={{ fontWeight: 600 }}>
+                  <AnimatedNumber value={4.4} precision={1} format={(n) => n.toFixed(1).replace('.', ',')} />
+                </span>
                 <div className="flex flex-col gap-1.5">
                   <Stars n={4} size={15} />
                   <span className="font-body text-[12px] text-[#7A6E5E]">22 opiniones en Google</span>
@@ -1139,7 +1176,8 @@ function SomosPiedraLanding() {
             </p>
           </Reveal>
 
-          <Reveal delay={100} className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-8">
+          {/* Desktop: grilla original */}
+          <Reveal delay={100} className="hidden md:grid grid-cols-4 gap-8">
             {pasos.map((p, i) =>
             <div key={i} className="flex flex-col pt-5 border-t-2 border-[#5A6B3F]/40">
                 <div className="font-display text-[64px] leading-none text-[#5A6B3F]/55 mb-5 tabular-nums" style={{ fontWeight: 500 }}>{p.n}</div>
@@ -1149,13 +1187,31 @@ function SomosPiedraLanding() {
             )}
           </Reveal>
 
+          {/* Mobile: accordion expandable */}
+          <Reveal delay={100} className="md:hidden flex flex-col divide-y divide-[#1F1A14]/10 border-t border-[#1F1A14]/10">
+            {pasos.map((p, i) =>
+            <Expandable key={i} transitionDuration={0.35} easeType="easeOut">
+                <ExpandableTrigger className="w-full py-5 flex items-center gap-4 cursor-pointer select-none">
+                  <span className="font-display text-[28px] leading-none text-[#5A6B3F]/55 tabular-nums w-10 flex-shrink-0" style={{ fontWeight: 500 }}>{p.n}</span>
+                  <h3 className="display-card font-display text-[20px] text-[#1F1A14] leading-tight flex-1 text-left" style={{ fontWeight: 500 }}>{p.titulo}</h3>
+                  <Plus size={18} className="text-[#5A6B3F] flex-shrink-0" />
+                </ExpandableTrigger>
+                <ExpandableContent preset="slide-up">
+                  <p className="font-body text-[14.5px] text-[#3D352B] leading-relaxed pb-5 pl-14">{p.copy}</p>
+                </ExpandableContent>
+              </Expandable>
+            )}
+          </Reveal>
+
           <Reveal delay={200} className="mt-12 md:mt-14 flex justify-center">
-            <a href="#cotizacion" onClick={scrollToCotizacion}
-            className="group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-7 py-4 rounded-full transition shadow-lg shadow-black/10">
-              <MessageCircle size={17} />
-              Coordinar visita al showroom
-              <ArrowRight size={17} className="group-hover:translate-x-1 transition" />
-            </a>
+            <TextureButton variant="brand" size="pill" asChild>
+              <a href="#cotizacion" onClick={scrollToCotizacion}
+                className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-7 py-4">
+                <MessageCircle size={17} />
+                Coordinar visita al showroom
+                <ArrowRight size={17} />
+              </a>
+            </TextureButton>
           </Reveal>
         </div>
       </section>
@@ -1181,7 +1237,8 @@ function SomosPiedraLanding() {
       </section>
 
       {/* COTIZACIÓN — form interactivo */}
-      <section id="cotizacion" className="bg-[#1F1A14] text-[#F5F0E6] py-24 md:py-32 px-6 md:px-10 scroll-mt-20">
+      <section id="cotizacion" className="relative bg-[#1F1A14] text-[#F5F0E6] py-24 md:py-32 px-6 md:px-10 scroll-mt-20">
+        <TextureOverlay texture="paperGrain" opacity={0.08} />
         <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20 items-start">
           <Reveal>
             <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Cotización</div>
@@ -1255,12 +1312,16 @@ function SomosPiedraLanding() {
               </li>
             </ul>
 
-            <a href="https://www.google.com/maps/search/Somos+Piedra+Belgrano+3090+Neuqu%C3%A9n" target="_blank" rel="noopener noreferrer"
-            className="mt-10 group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-6 py-3.5 rounded-full transition shadow-md shadow-black/10">
-              <MapPin size={16} />
-              Cómo llegar al showroom
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition" />
-            </a>
+            <div className="mt-10">
+              <TextureButton variant="brand" size="pill" asChild>
+                <a href="https://www.google.com/maps/search/Somos+Piedra+Belgrano+3090+Neuqu%C3%A9n" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-6 py-3.5">
+                  <MapPin size={16} />
+                  Cómo llegar al showroom
+                  <ArrowRight size={16} />
+                </a>
+              </TextureButton>
+            </div>
           </Reveal>
 
           <Reveal delay={100}>
