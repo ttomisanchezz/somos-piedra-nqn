@@ -753,7 +753,7 @@ function SomosPiedraLanding() {
           {/* Center: links (desktop only) */}
           <div className={`hidden lg:flex items-center gap-6 font-body text-[13px] flex-1 justify-center ${scrollY > 40 ? 'text-[#3D352B]' : 'text-white/85'}`}>
             <a href="#productos" className="hover:text-[#5A6B3F] transition py-2">Productos</a>
-            <a href="#aplicaciones" className="hover:text-[#5A6B3F] transition py-2">Aplicaciones</a>
+            <a href="#aplicaciones" className="hover:text-[#5A6B3F] transition py-2">Usos</a>
             <a href="#proceso" className="hover:text-[#5A6B3F] transition py-2">Proceso</a>
             <a href="#cotizacion" onClick={scrollToCotizacion} className="hover:text-[#5A6B3F] transition py-2">Cotización</a>
             <a href="#opiniones" className="hover:text-[#5A6B3F] transition py-2">Opiniones</a>
@@ -794,7 +794,7 @@ function SomosPiedraLanding() {
                   <nav className="flex flex-col gap-0.5 font-body text-[16px] text-[#1F1A14] mb-5">
                     {[
                       { href: '#productos', label: 'Productos' },
-                      { href: '#aplicaciones', label: 'Aplicaciones' },
+                      { href: '#aplicaciones', label: 'Usos' },
                       { href: '#proceso', label: 'Proceso' },
                       { href: '#cotizacion', label: 'Cotización' },
                       { href: '#opiniones', label: 'Opiniones' },
@@ -967,7 +967,7 @@ function SomosPiedraLanding() {
         <TextureOverlay texture="diagonal" opacity={0.05} />
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Aplicaciones</div>
+            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Usos</div>
             <h2 className="display-section font-display text-[34px] md:text-[52px] leading-[1.04] tracking-[-0.02em] text-[#F5F0E6]" style={{ fontWeight: 500 }}>
               Cada espacio pide una piedra distinta
             </h2>
@@ -1388,7 +1388,7 @@ function SomosPiedraLanding() {
             <div className="flex flex-col gap-2.5 font-body text-[13.5px]">
               <span className="text-[10px] uppercase tracking-[0.22em] text-[#F5F0E6]/45 mb-2">Navegar</span>
               <a href="#productos" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Productos</a>
-              <a href="#aplicaciones" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Aplicaciones</a>
+              <a href="#aplicaciones" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Usos</a>
               <a href="#proceso" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Proceso</a>
               <a href="#cotizacion" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Cotización</a>
               <a href="#instagram" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Instagram</a>
@@ -1456,7 +1456,7 @@ function SomosPiedraLanding() {
         const ctaMsg = {
           top: 'Hola Somos Piedra, quiero asesoramiento sobre un proyecto.',
           productos: 'Hola Somos Piedra, vi el catálogo y quiero consultar por algunos materiales.',
-          aplicaciones: 'Hola Somos Piedra, vi las aplicaciones y quiero asesoramiento.',
+          aplicaciones: 'Hola Somos Piedra, vi los usos y quiero asesoramiento.',
           instagram: 'Hola Somos Piedra, vi el Instagram y quería consultar por productos.',
           opiniones: 'Hola Somos Piedra, quiero pedir una cotización.',
           proceso: 'Hola Somos Piedra, quiero empezar a ver opciones para mi proyecto.',
