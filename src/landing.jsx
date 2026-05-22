@@ -756,7 +756,6 @@ function SomosPiedraLanding() {
             <a href="#aplicaciones" className="hover:text-[#5A6B3F] transition py-2">Aplicaciones</a>
             <a href="#proceso" className="hover:text-[#5A6B3F] transition py-2">Proceso</a>
             <a href="#cotizacion" onClick={scrollToCotizacion} className="hover:text-[#5A6B3F] transition py-2">Cotización</a>
-            <a href="#instagram" className="hover:text-[#5A6B3F] transition py-2">Instagram</a>
             <a href="#opiniones" className="hover:text-[#5A6B3F] transition py-2">Opiniones</a>
             <a href="#faq" className="hover:text-[#5A6B3F] transition py-2">FAQ</a>
             <a href="#ubicacion" className="hover:text-[#5A6B3F] transition py-2">Ubicación</a>
@@ -798,7 +797,6 @@ function SomosPiedraLanding() {
                       { href: '#aplicaciones', label: 'Aplicaciones' },
                       { href: '#proceso', label: 'Proceso' },
                       { href: '#cotizacion', label: 'Cotización' },
-                      { href: '#instagram', label: 'Instagram' },
                       { href: '#opiniones', label: 'Opiniones' },
                       { href: '#faq', label: 'Preguntas frecuentes' },
                       { href: '#ubicacion', label: 'Ubicación' }
