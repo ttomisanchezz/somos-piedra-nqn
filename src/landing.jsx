@@ -81,7 +81,7 @@ const trustItems = [
 
 
 const productos = [
-{ categoria: 'Revestimientos', tipo: 'revestimiento', titulo: 'Revestimientos premium', descripcion: 'Placas y láminas para frentes, muros y paredes. Tonos verdes, grises y bronce.', usos: 'frente · muro · pared exterior', img: '/fotos/real/revestimiento-premium-pilar.png', mensajeWa: 'Hola, me interesan los revestimientos premium. ¿Qué opciones tienen y cuánto sale el m²?' },
+{ categoria: 'Revestimientos', tipo: 'revestimiento', titulo: 'Revestimientos premium', descripcion: 'Placas y láminas para frentes, muros y paredes. Tonos verdes, grises y bronce.', usos: 'frente · muro · pared exterior', img: '/fotos/revestimientopreimum.png', mensajeWa: 'Hola, me interesan los revestimientos premium. ¿Qué opciones tienen y cuánto sale el m²?' },
 { categoria: 'Lajas', tipo: 'lajas', titulo: 'Lajas naturales', descripcion: 'Cortes naturales para pisos exteriores, frentes y caminos. Veteado real, no impreso.', usos: 'piso · frente · camino', img: '/fotos/real/laja-bariloche-topdown.webp', mensajeWa: 'Hola, me interesan las lajas naturales. ¿Qué opciones tienen y cuánto sale el m²?' },
 { categoria: 'Decorativas', tipo: 'decorativa', titulo: 'Piedras decorativas', descripcion: 'Granzas, canto rodado y piedra partida para canteros, caminos y jardines.', usos: 'jardín · cantero · detalle', img: '/fotos/real/piedras-decorativas-hero.png', mensajeWa: 'Hola, quiero piedra decorativa para mi jardín. ¿Qué variedades manejan?' },
 { categoria: 'Frentes', tipo: 'frente', titulo: 'Piedra para frentes', descripcion: 'Materiales con peso visual y resistencia para fachadas que envejecen bien.', usos: 'fachada · entrada · muro', img: '/fotos/real/frente-cream-familia.jpg', mensajeWa: 'Hola, busco piedra para revestir el frente de mi casa. ¿Qué me recomiendan?' },
@@ -106,7 +106,7 @@ const aplicaciones = [
 { titulo: 'Pisos exteriores', copy: 'Opciones resistentes para sol, heladas y tránsito.', img: '/fotos/real/piso-laja-riojana-rojizo.jpg' },
 { titulo: 'Quinchos', copy: 'Calidez visual y resistencia al fuego. La piedra que envejece bien.', img: '/fotos/hogar-cuarcita-1.jpg' },
 { titulo: 'Hogares y chimeneas', copy: 'Piedra riojana para hogares y chimeneas.', img: '/fotos/hogaresychimeneas.png' },
-{ titulo: 'Muros y cercos', copy: 'Piedras decorativas para jardines, muros y cercos.', img: '/fotos/real/muro-slate-jardin.jpg' },
+{ titulo: '', copy: 'Piedras decorativas para jardines, muros y cercos.', img: '/fotos/real/muro-slate-jardin.jpg' },
 { titulo: 'Locales comerciales', copy: 'Materiales que comunican marca: sobrios, durables, premium.', img: '/fotos/fotofrente.jpeg' }];
 
 
@@ -579,7 +579,7 @@ function CatalogoSection() {
   const [filtro, setFiltro] = useState('todos');
   const [decorativaIdx, setDecorativaIdx] = useState(0);
   const decorativaVariantes = [
-    { label: 'Blanca', img: '/fotos/real/piedras-decorativas-hero.png' },
+    { label: 'Blanca', img: '/fotos/branzablanca.jpeg' },
     { label: 'Roja', img: '/fotos/branzaroja.png' },
     { label: 'Gris', img: '/fotos/branzanegra.png' },
   ];
