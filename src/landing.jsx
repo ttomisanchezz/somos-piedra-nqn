@@ -76,7 +76,7 @@ const HERO_IMAGE_SRCSET = null;
 const trustItems = [
 { icon: MapPin, titulo: 'Neuquén y zona', text: 'Entregas coordinadas según volumen y distancia. Si querés, también te lo cargamos sin costo adicional.' },
 { icon: MessageCircle, titulo: 'Asesoramiento real', text: 'Te ayudamos a elegir según uso, estilo y presupuesto.' },
-{ icon: HardHat, titulo: 'Obra y hogar', text: 'Materiales para frentes, pisos, jardines y paredes.' },
+{ icon: HardHat, titulo: 'Grandes proyectos', text: 'Stock y capacidad para abastecer frentes, locales y proyectos de gran escala.' },
 { icon: Ruler, titulo: 'Cotización por m²', text: 'Calculamos cantidad y precio aproximado.' }];
 
 
@@ -727,9 +727,10 @@ function SomosPiedraLanding() {
           <div className={`hidden lg:flex items-center gap-6 font-body text-[13px] flex-1 justify-center ${scrollY > 40 ? 'text-[#3D352B]' : 'text-white/85'}`}>
             <a href="#productos" className="hover:text-[#5A6B3F] transition py-2">Productos</a>
             <a href="#aplicaciones" className="hover:text-[#5A6B3F] transition py-2">Aplicaciones</a>
+            <a href="#proceso" className="hover:text-[#5A6B3F] transition py-2">Proceso</a>
+            <a href="#cotizacion" onClick={scrollToCotizacion} className="hover:text-[#5A6B3F] transition py-2">Cotización</a>
             <a href="#instagram" className="hover:text-[#5A6B3F] transition py-2">Instagram</a>
             <a href="#opiniones" className="hover:text-[#5A6B3F] transition py-2">Opiniones</a>
-            <a href="#proceso" className="hover:text-[#5A6B3F] transition py-2">Proceso</a>
             <a href="#faq" className="hover:text-[#5A6B3F] transition py-2">FAQ</a>
             <a href="#ubicacion" className="hover:text-[#5A6B3F] transition py-2">Ubicación</a>
           </div>
@@ -768,9 +769,10 @@ function SomosPiedraLanding() {
                     {[
                       { href: '#productos', label: 'Productos' },
                       { href: '#aplicaciones', label: 'Aplicaciones' },
+                      { href: '#proceso', label: 'Proceso' },
+                      { href: '#cotizacion', label: 'Cotización' },
                       { href: '#instagram', label: 'Instagram' },
                       { href: '#opiniones', label: 'Opiniones' },
-                      { href: '#proceso', label: 'Proceso' },
                       { href: '#faq', label: 'Preguntas frecuentes' },
                       { href: '#ubicacion', label: 'Ubicación' }
                     ].map((it) =>
@@ -845,7 +847,7 @@ function SomosPiedraLanding() {
           </p>
 
           <p className="mt-5 max-w-xl font-body font-light text-[14.5px] md:text-[16px] text-white/90 leading-relaxed fade-up delay-500">
-            Revestimientos, lajas, piedras decorativas y vivero. Te orientamos antes de vender.
+            Revestimientos, lajas, piedras decorativas y vivero. Para hogares, frentes y grandes obras.
           </p>
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3 fade-up delay-700">
@@ -995,7 +997,89 @@ function SomosPiedraLanding() {
         </div>
       </section>
 
-      {/* INSTAGRAM \u2014 inspiraci\u00f3n real del feed */}
+      {/* PROCESO */}
+      <section id="proceso" className="bg-[#EDE5D4] py-20 md:py-24 px-6 md:px-10">
+        <div className="max-w-7xl mx-auto">
+          <Reveal className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#7A6E5E] mb-4">Proceso</div>
+            <h2 className="display-section font-display text-[34px] md:text-[52px] leading-[1.04] tracking-[-0.02em] text-[#1F1A14]" style={{ fontWeight: 500 }}>
+              No vendemos piedra. <span className="italic text-[#5A6B3F]">Resolvemos espacios.</span>
+            </h2>
+            <p className="mt-5 font-body text-[15px] md:text-[16px] text-[#3D352B] leading-relaxed">
+              Cuatro pasos simples para que llegues al material correcto sin equivocarte.
+            </p>
+          </Reveal>
+
+          {/* Desktop: grilla original */}
+          <Reveal delay={100} className="hidden md:grid grid-cols-4 gap-8">
+            {pasos.map((p, i) =>
+            <div key={i} className="flex flex-col pt-5 border-t-2 border-[#5A6B3F]/40">
+                <div className="font-display text-[64px] leading-none text-[#5A6B3F]/55 mb-5 tabular-nums" style={{ fontWeight: 500 }}>{p.n}</div>
+                <h3 className="display-card font-display text-[22px] text-[#1F1A14] leading-tight mb-2.5" style={{ fontWeight: 500 }}>{p.titulo}</h3>
+                <p className="font-body text-[14px] text-[#3D352B] leading-relaxed">{p.copy}</p>
+              </div>
+            )}
+          </Reveal>
+
+          {/* Mobile: accordion expandable */}
+          <Reveal delay={100} className="md:hidden flex flex-col divide-y divide-[#1F1A14]/10 border-t border-[#1F1A14]/10">
+            {pasos.map((p, i) =>
+            <Expandable key={i} transitionDuration={0.35} easeType="easeOut">
+                <ExpandableTrigger className="w-full py-5 flex items-center gap-4 cursor-pointer select-none">
+                  <span className="font-display text-[28px] leading-none text-[#5A6B3F]/55 tabular-nums w-10 flex-shrink-0" style={{ fontWeight: 500 }}>{p.n}</span>
+                  <h3 className="display-card font-display text-[20px] text-[#1F1A14] leading-tight flex-1 text-left" style={{ fontWeight: 500 }}>{p.titulo}</h3>
+                  <Plus size={18} className="text-[#5A6B3F] flex-shrink-0" />
+                </ExpandableTrigger>
+                <ExpandableContent preset="slide-up">
+                  <p className="font-body text-[14.5px] text-[#3D352B] leading-relaxed pb-5 pl-14">{p.copy}</p>
+                </ExpandableContent>
+              </Expandable>
+            )}
+          </Reveal>
+
+          <Reveal delay={200} className="mt-12 md:mt-14 flex justify-center">
+            <a href="#cotizacion" onClick={scrollToCotizacion}
+            className="group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-7 py-4 rounded-full transition shadow-lg shadow-black/10">
+              <MessageCircle size={17} />
+              Pedí tu cotización
+              <ArrowRight size={17} className="group-hover:translate-x-1 transition" />
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* COTIZACIÓN — form interactivo */}
+      <section id="cotizacion" className="relative bg-[#1F1A14] text-[#F5F0E6] py-24 md:py-32 px-6 md:px-10 scroll-mt-20">
+        <TextureOverlay texture="paperGrain" opacity={0.08} />
+        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20 items-start">
+          <Reveal>
+            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Cotización</div>
+            <h2 className="display-section font-display text-[34px] md:text-[44px] leading-[1.04] tracking-[-0.02em] text-[#F5F0E6]" style={{ fontWeight: 500 }}>
+              Pedí tu cotización <span className="italic text-[#A8B97F]">en minutos</span>
+            </h2>
+            <p className="mt-5 font-body text-[15px] md:text-[16px] text-[#F5F0E6]/65 leading-relaxed max-w-md">
+              Completá lo que tengas. Te calculamos los m² y armamos el mensaje listo para mandarnos.
+            </p>
+
+            <ul className="mt-10 flex flex-col gap-4">
+              {checklist.map((item, i) =>
+              <li key={i} className="flex items-start gap-3.5">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5A6B3F]/20 border border-[#A8B97F]/30 flex items-center justify-center mt-0.5">
+                    <Check size={13} strokeWidth={2.5} className="text-[#A8B97F]" />
+                  </div>
+                  <span className="font-body text-[15px] text-[#F5F0E6]/85 leading-snug pt-0.5">{item}</span>
+                </li>
+              )}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <CotizarForm />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* INSTAGRAM — inspiración real del feed */}
       <section id="instagram" className="bg-[#F5F0E6] py-20 md:py-28 px-6 md:px-10 border-t border-[#1F1A14]/8">
         <div className="max-w-7xl mx-auto">
           <Reveal className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 mb-10 md:mb-14 items-end">
@@ -1142,57 +1226,6 @@ function SomosPiedraLanding() {
         </div>
       </section>
 
-      {/* PROCESO */}
-      <section id="proceso" className="bg-[#EDE5D4] py-20 md:py-24 px-6 md:px-10">
-        <div className="max-w-7xl mx-auto">
-          <Reveal className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#7A6E5E] mb-4">Proceso</div>
-            <h2 className="display-section font-display text-[34px] md:text-[52px] leading-[1.04] tracking-[-0.02em] text-[#1F1A14]" style={{ fontWeight: 500 }}>
-              No vendemos piedra. <span className="italic text-[#5A6B3F]">Resolvemos espacios.</span>
-            </h2>
-            <p className="mt-5 font-body text-[15px] md:text-[16px] text-[#3D352B] leading-relaxed">
-              Cuatro pasos simples para que llegues al material correcto sin equivocarte.
-            </p>
-          </Reveal>
-
-          {/* Desktop: grilla original */}
-          <Reveal delay={100} className="hidden md:grid grid-cols-4 gap-8">
-            {pasos.map((p, i) =>
-            <div key={i} className="flex flex-col pt-5 border-t-2 border-[#5A6B3F]/40">
-                <div className="font-display text-[64px] leading-none text-[#5A6B3F]/55 mb-5 tabular-nums" style={{ fontWeight: 500 }}>{p.n}</div>
-                <h3 className="display-card font-display text-[22px] text-[#1F1A14] leading-tight mb-2.5" style={{ fontWeight: 500 }}>{p.titulo}</h3>
-                <p className="font-body text-[14px] text-[#3D352B] leading-relaxed">{p.copy}</p>
-              </div>
-            )}
-          </Reveal>
-
-          {/* Mobile: accordion expandable */}
-          <Reveal delay={100} className="md:hidden flex flex-col divide-y divide-[#1F1A14]/10 border-t border-[#1F1A14]/10">
-            {pasos.map((p, i) =>
-            <Expandable key={i} transitionDuration={0.35} easeType="easeOut">
-                <ExpandableTrigger className="w-full py-5 flex items-center gap-4 cursor-pointer select-none">
-                  <span className="font-display text-[28px] leading-none text-[#5A6B3F]/55 tabular-nums w-10 flex-shrink-0" style={{ fontWeight: 500 }}>{p.n}</span>
-                  <h3 className="display-card font-display text-[20px] text-[#1F1A14] leading-tight flex-1 text-left" style={{ fontWeight: 500 }}>{p.titulo}</h3>
-                  <Plus size={18} className="text-[#5A6B3F] flex-shrink-0" />
-                </ExpandableTrigger>
-                <ExpandableContent preset="slide-up">
-                  <p className="font-body text-[14.5px] text-[#3D352B] leading-relaxed pb-5 pl-14">{p.copy}</p>
-                </ExpandableContent>
-              </Expandable>
-            )}
-          </Reveal>
-
-          <Reveal delay={200} className="mt-12 md:mt-14 flex justify-center">
-            <a href="#cotizacion" onClick={scrollToCotizacion}
-            className="group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-7 py-4 rounded-full transition shadow-lg shadow-black/10">
-              <MessageCircle size={17} />
-              Coordinar visita al showroom
-              <ArrowRight size={17} className="group-hover:translate-x-1 transition" />
-            </a>
-          </Reveal>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="bg-[#EDE5D4] py-20 md:py-24 px-6 md:px-10">
         <div className="max-w-4xl mx-auto">
@@ -1209,37 +1242,6 @@ function SomosPiedraLanding() {
           </Reveal>
           <Reveal delay={100}>
             <FaqSection />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* COTIZACIÓN — form interactivo */}
-      <section id="cotizacion" className="relative bg-[#1F1A14] text-[#F5F0E6] py-24 md:py-32 px-6 md:px-10 scroll-mt-20">
-        <TextureOverlay texture="paperGrain" opacity={0.08} />
-        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20 items-start">
-          <Reveal>
-            <div className="text-[10px] font-body uppercase tracking-[0.3em] text-[#A8B97F] mb-4">Cotización</div>
-            <h2 className="display-section font-display text-[34px] md:text-[44px] leading-[1.04] tracking-[-0.02em] text-[#F5F0E6]" style={{ fontWeight: 500 }}>
-              Pedí tu cotización <span className="italic text-[#A8B97F]">en minutos</span>
-            </h2>
-            <p className="mt-5 font-body text-[15px] md:text-[16px] text-[#F5F0E6]/65 leading-relaxed max-w-md">
-              Completá lo que tengas. Te calculamos los m² y armamos el mensaje listo para mandarnos.
-            </p>
-
-            <ul className="mt-10 flex flex-col gap-4">
-              {checklist.map((item, i) =>
-              <li key={i} className="flex items-start gap-3.5">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#5A6B3F]/20 border border-[#A8B97F]/30 flex items-center justify-center mt-0.5">
-                    <Check size={13} strokeWidth={2.5} className="text-[#A8B97F]" />
-                  </div>
-                  <span className="font-body text-[15px] text-[#F5F0E6]/85 leading-snug pt-0.5">{item}</span>
-                </li>
-              )}
-            </ul>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <CotizarForm />
           </Reveal>
         </div>
       </section>
@@ -1341,11 +1343,11 @@ function SomosPiedraLanding() {
               <span className="text-[10px] uppercase tracking-[0.22em] text-[#F5F0E6]/45 mb-2">Navegar</span>
               <a href="#productos" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Productos</a>
               <a href="#aplicaciones" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Aplicaciones</a>
+              <a href="#proceso" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Proceso</a>
+              <a href="#cotizacion" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Cotización</a>
               <a href="#instagram" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Instagram</a>
               <a href="#opiniones" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Opiniones</a>
-              <a href="#proceso" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Proceso</a>
               <a href="#faq" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">FAQ</a>
-              <a href="#cotizacion" className="text-[#F5F0E6]/80 hover:text-[#A8B97F] transition w-fit">Cotización</a>
             </div>
             <div className="flex flex-col gap-3 font-body text-[13.5px]">
               <span className="text-[10px] uppercase tracking-[0.22em] text-[#F5F0E6]/45 mb-2">Contacto</span>
