@@ -65,7 +65,7 @@ const igWaLink = buildWhatsAppLink('Hola Somos Piedra, vengo del Instagram y que
 const igCards = [
 { cat: 'Vivero', titulo: 'Nuestro vivero', copy: 'Plantas, macetas y deco al atardecer en San Lorenzo y Güemes, Cinco Saltos.', img: '/fotos/real/ig-vivero-dusk.png', featured: true },
 { cat: 'Césped', titulo: 'Césped en panes', copy: 'Panes verdes recién cortados, listos para colocar.', img: '/fotos/real/ig-cesped-panes.png' },
-{ cat: 'Sustratos', titulo: 'Tierra fértil', copy: 'Tierra fértil para plantar bien.', img: '/fotos/real/ig-tierra-bolsas.png' },
+{ cat: 'Sustratos', titulo: 'Tierra fértil', copy: 'Tierra fértil.', img: '/fotos/real/ig-tierra-bolsas.png' },
 { cat: 'Plantas', titulo: 'Flores & plantas', copy: 'Variedad de florales y plantines de temporada.', img: '/fotos/real/ig-plantas-flores.png' }];
 
 
@@ -102,12 +102,12 @@ const filtros = [
 const aplicaciones = [
 { titulo: 'Frentes', copy: 'Piedras con presencia visual y bajo mantenimiento.', img: '/fotos/real/frente-cream-familia.jpg' },
 { titulo: 'Jardines', copy: 'Texturas naturales para canteros, caminos y detalles.', img: '/fotos/real/jardines-hero.png' },
-{ titulo: 'Paredes interiores', copy: 'Revestimientos cálidos para sumar carácter sin recargar.', img: '/fotos/real/interior-piedra-irregular.jpg' },
+{ titulo: 'Frentes y exteriores', copy: 'Revestimientos durables para fachadas, galerías y muros exteriores.', img: '/fotos/real/interior-piedra-irregular.jpg' },
 { titulo: 'Pisos exteriores', copy: 'Opciones resistentes para sol, heladas y tránsito.', img: '/fotos/real/piso-laja-riojana-rojizo.jpg' },
 { titulo: 'Quinchos', copy: 'Calidez visual y resistencia al fuego. La piedra que envejece bien.', img: '/fotos/hogar-cuarcita-1.jpg' },
-{ titulo: 'Hogares y chimeneas', copy: 'Piedra riojana para hogares y chimeneas.', img: '/fotos/real/laja-vereda-beige.jpg' },
+{ titulo: 'Hogares y chimeneas', copy: 'Piedra riojana para hogares y chimeneas.', img: '/fotos/hogaresychimeneas.png' },
 { titulo: 'Muros y cercos', copy: 'Piedras decorativas para jardines, muros y cercos.', img: '/fotos/real/muro-slate-jardin.jpg' },
-{ titulo: 'Locales comerciales', copy: 'Materiales que comunican marca: sobrios, durables, premium.', img: '/fotos/real/frente-black-slate.jpg' }];
+{ titulo: 'Locales comerciales', copy: 'Materiales que comunican marca: sobrios, durables, premium.', img: '/fotos/fotofrente.jpeg' }];
 
 
 const pasos = [
@@ -577,6 +577,12 @@ function FaqSection() {
 // ---------- Catálogo con filtros ----------
 function CatalogoSection() {
   const [filtro, setFiltro] = useState('todos');
+  const [decorativaIdx, setDecorativaIdx] = useState(0);
+  const decorativaVariantes = [
+    { label: 'Blanca', img: '/fotos/real/piedras-decorativas-hero.png' },
+    { label: 'Roja', img: '/fotos/branzaroja.png' },
+    { label: 'Gris', img: '/fotos/branzanegra.png' },
+  ];
   const items = useMemo(
     () => filtro === 'todos' ? productos : productos.filter((p) => p.tipo === filtro),
     [filtro]
@@ -595,38 +601,59 @@ function CatalogoSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {items.map((p) =>
-        <CutoutCard key={p.titulo} className={cn(cutoutCardSurfaceClassName, "bg-[#EDE5D4] flex flex-col")}>
-            <a href={buildWhatsAppLink(p.mensajeWa)} target="_blank" rel="noopener noreferrer" className="flex flex-col flex-1">
-              <CutoutCardMedia className="aspect-[4/5] bg-[#EDE5D4]">
-                <CutoutCardImage src={p.img} alt={p.titulo} style={{ filter: 'saturate(0.92)' }} />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/cutout:opacity-100 transition duration-500" />
-                <CutoutCardInsetLabel className="bottom-3 left-3">
-                  <span className="font-body text-[10px] uppercase tracking-[0.2em] text-[#7A6E5E] bg-[#EDE5D4]/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                    {p.categoria}
-                  </span>
-                </CutoutCardInsetLabel>
-                <CutoutCardAction revealOnHover className="bottom-3 right-3">
-                  <span className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium text-white bg-[#5A6B3F] px-3 py-1.5 rounded-full shadow-lg">
-                    Consultar <ArrowRight size={12} />
-                  </span>
-                </CutoutCardAction>
-              </CutoutCardMedia>
-              <CutoutCardContent className="p-6 flex flex-col gap-2.5 flex-1">
-                <h3 className="font-display text-[22px] text-[#1F1A14] leading-tight tracking-tight" style={{ fontWeight: 500 }}>{p.titulo}</h3>
-                <p className="font-body text-[14px] text-[#3D352B] leading-snug"
-                  style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                  {p.descripcion}
-                </p>
-                <div className="font-body text-[12px] text-[#7A6E5E] tracking-wide mt-auto pt-2">{p.usos}</div>
-              </CutoutCardContent>
-              <CutoutCardFooter className="px-6 pb-5 pt-3 border-t border-[#1F1A14]/10">
-                <span className="font-body text-[13px] font-medium text-[#5A6B3F]">Consultar material</span>
-                <ArrowRight size={15} className="text-[#5A6B3F] group-hover/cutout:translate-x-1 transition" />
-              </CutoutCardFooter>
-            </a>
-          </CutoutCard>
-        )}
+        {items.map((p) => {
+          const isDecorativa = p.tipo === 'decorativa';
+          const imgSrc = isDecorativa ? decorativaVariantes[decorativaIdx].img : p.img;
+          return (
+            <CutoutCard key={p.titulo} className={cn(cutoutCardSurfaceClassName, "bg-[#EDE5D4] flex flex-col")}>
+              <a href={buildWhatsAppLink(p.mensajeWa)} target="_blank" rel="noopener noreferrer" className="flex flex-col flex-1">
+                <CutoutCardMedia className="aspect-[4/5] bg-[#EDE5D4]">
+                  <CutoutCardImage src={imgSrc} alt={p.titulo} style={{ filter: 'saturate(0.92)' }} />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/cutout:opacity-100 transition duration-500" />
+                  <CutoutCardInsetLabel className="bottom-3 left-3">
+                    <span className="font-body text-[10px] uppercase tracking-[0.2em] text-[#7A6E5E] bg-[#EDE5D4]/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                      {p.categoria}
+                    </span>
+                  </CutoutCardInsetLabel>
+                  <CutoutCardAction revealOnHover className="bottom-3 right-3">
+                    <span className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium text-white bg-[#5A6B3F] px-3 py-1.5 rounded-full shadow-lg">
+                      Consultar <ArrowRight size={12} />
+                    </span>
+                  </CutoutCardAction>
+                </CutoutCardMedia>
+                <CutoutCardContent className="p-6 flex flex-col gap-2.5 flex-1">
+                  {isDecorativa && (
+                    <div className="flex gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      {decorativaVariantes.map((v, i) => (
+                        <button
+                          key={v.label}
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setDecorativaIdx(i); }}
+                          className={`font-body text-[11px] px-2.5 py-1 rounded-full transition border ${
+                            decorativaIdx === i
+                              ? 'bg-[#5A6B3F] border-[#5A6B3F] text-white'
+                              : 'bg-transparent border-[#1F1A14]/20 text-[#7A6E5E] hover:border-[#5A6B3F] hover:text-[#5A6B3F]'
+                          }`}
+                        >
+                          {v.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  <h3 className="font-display text-[22px] text-[#1F1A14] leading-tight tracking-tight" style={{ fontWeight: 500 }}>{p.titulo}</h3>
+                  <p className="font-body text-[14px] text-[#3D352B] leading-snug"
+                    style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {p.descripcion}
+                  </p>
+                  <div className="font-body text-[12px] text-[#7A6E5E] tracking-wide mt-auto pt-2">{p.usos}</div>
+                </CutoutCardContent>
+                <CutoutCardFooter className="px-6 pb-5 pt-3 border-t border-[#1F1A14]/10">
+                  <span className="font-body text-[13px] font-medium text-[#5A6B3F]">Consultar material</span>
+                  <ArrowRight size={15} className="text-[#5A6B3F] group-hover/cutout:translate-x-1 transition" />
+                </CutoutCardFooter>
+              </a>
+            </CutoutCard>
+          );
+        })}
       </div>
     </>);
 
@@ -1071,6 +1098,27 @@ function SomosPiedraLanding() {
                 </li>
               )}
             </ul>
+
+            <div className="mt-8 pt-6 border-t border-[#F5F0E6]/10">
+              <p className="font-body text-[12px] uppercase tracking-[0.18em] text-[#F5F0E6]/40 mb-3">O también escribinos a estos números:</p>
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-center gap-2.5 font-body text-[13.5px]">
+                  <span className="text-[#F5F0E6]/90 font-medium">2994152119</span>
+                  <span className="text-[#F5F0E6]/30">—</span>
+                  <span className="text-[#F5F0E6]/60">Dueño</span>
+                </li>
+                <li className="flex items-center gap-2.5 font-body text-[13.5px]">
+                  <span className="text-[#F5F0E6]/90 font-medium">2994590936</span>
+                  <span className="text-[#F5F0E6]/30">—</span>
+                  <span className="text-[#F5F0E6]/60">Negocio <span className="text-[#F5F0E6]/40 text-[11.5px]">(solo WhatsApp)</span></span>
+                </li>
+                <li className="flex items-center gap-2.5 font-body text-[13.5px]">
+                  <span className="text-[#F5F0E6]/90 font-medium">2994462548</span>
+                  <span className="text-[#F5F0E6]/30">—</span>
+                  <span className="text-[#F5F0E6]/60">Fijo</span>
+                </li>
+              </ul>
+            </div>
           </Reveal>
 
           <Reveal delay={100}>
