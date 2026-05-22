@@ -836,10 +836,13 @@ function SomosPiedraLanding() {
             <span className="text-[10.5px] font-body font-medium text-white tracking-[0.22em] uppercase">Piedra natural · Vivero · Neuquén</span>
           </div>
 
-          <h1 className="display-hero font-hero text-[34px] sm:text-[44px] md:text-[56px] lg:text-[68px] text-white leading-[1.02] tracking-[-0.018em] max-w-3xl fade-up delay-300" style={{ fontWeight: 500 }}>
-            Piedra natural para tu obra.<br />
-            <span className="italic text-[#E8DFC9]">Asesorada, cotizada y entregada</span> en Neuquén.
+          <h1 className="display-hero font-display text-[34px] sm:text-[44px] md:text-[56px] lg:text-[64px] text-white leading-[1.06] tracking-[-0.012em] max-w-2xl fade-up delay-300" style={{ fontWeight: 400, fontVariationSettings: '"opsz" 96' }}>
+            Piedra natural para tu obra.
           </h1>
+
+          <p className="mt-3 max-w-lg font-hero text-[17px] sm:text-[19px] md:text-[21px] text-[#E8DFC9] leading-[1.35] tracking-[0.004em] fade-up delay-500" style={{ fontWeight: 400 }}>
+            Asesoramiento, cotización y entrega en Neuquén.
+          </p>
 
           <p className="mt-5 max-w-xl font-body font-light text-[14.5px] md:text-[16px] text-white/90 leading-relaxed fade-up delay-500">
             Revestimientos, lajas, piedras decorativas y vivero. Te orientamos antes de vender.
