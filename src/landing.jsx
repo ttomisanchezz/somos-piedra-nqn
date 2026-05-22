@@ -847,7 +847,7 @@ function SomosPiedraLanding() {
           </p>
 
           <p className="mt-5 max-w-xl font-body font-light text-[14.5px] md:text-[16px] text-white/90 leading-relaxed fade-up delay-500">
-            Revestimientos, lajas, piedras decorativas y vivero. Para hogares, frentes y grandes obras.
+            Revestimientos, lajas, piedras decorativas y vivero. Para hogares, frentes y grandes proyectos.
           </p>
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3 fade-up delay-700">
