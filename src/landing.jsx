@@ -7,6 +7,8 @@ import { AnimatedNumber } from '@/components/ui/animated-number';
 import { Expandable, ExpandableTrigger, ExpandableContent } from '@/components/ui/expandable';
 import { FamilyDrawerRoot, FamilyDrawerPortal, FamilyDrawerOverlay, FamilyDrawerContent, FamilyDrawerAnimatedWrapper, FamilyDrawerAnimatedContent, FamilyDrawerClose } from '@/components/ui/family-drawer';
 import { cn } from '@/lib/utils';
+import { MinimalCard } from '@/components/ui/minimal-card';
+import { ExpandableScreen, ExpandableScreenContent, useExpandableScreen } from '@/components/ui/expandable-screen';
 
 // ---------- Icons ----------
 const Icon = ({ children, size = 24, strokeWidth = 2, className = '', ...rest }) =>
@@ -486,81 +488,58 @@ function CotizarForm() {
 
 }
 
-// ---------- Galería: hero + grid + lightbox ----------
-function GaleriaSection() {
-  const [open, setOpen] = useState(null); // index
-  useEffect(() => {
-    if (open === null) return;
-    const onKey = (e) => {
-      if (e.key === 'Escape') setOpen(null);
-      if (e.key === 'ArrowRight') setOpen((i) => (i + 1) % galeria.length);
-      if (e.key === 'ArrowLeft') setOpen((i) => (i - 1 + galeria.length) % galeria.length);
-    };
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {window.removeEventListener('keydown', onKey);document.body.style.overflow = '';};
-  }, [open]);
-
-  const tile = (i, extraClass = '') => {
-    const g = galeria[i];
-    return (
-      <button key={i} onClick={() => setOpen(i)}
-      className={`relative rounded-xl overflow-hidden group cursor-pointer ${extraClass}`}>
+// ---------- Galería: hero editorial + expandable lightbox ----------
+function GalleryTileInner({ g, extraClass }) {
+  const { expand } = useExpandableScreen();
+  return (
+    <>
+      <button
+        onClick={expand}
+        className={`relative rounded-xl overflow-hidden group cursor-pointer ${extraClass}`}>
         <img src={g.img} alt={g.tag} loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-[1.04]"
-        style={{ filter: 'saturate(0.92)' }} />
+          className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-[1.04]"
+          style={{ filter: 'saturate(0.92)' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition duration-500 translate-y-2 group-hover:translate-y-0">
           <span className="inline-block font-body text-[11px] uppercase tracking-[0.18em] text-white bg-black/35 backdrop-blur-md px-2.5 py-1.5 rounded-full">
             {g.tag}
           </span>
         </div>
-      </button>);
-
-  };
-
-  return (
-    <>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" style={{ gridAutoRows: 'minmax(120px, 1fr)' }}>
-        {/* Editorial layout: first image is large hero */}
-        <div className="col-span-2 row-span-2 aspect-[4/5] md:aspect-auto relative">{tile(0, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(1, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(2, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(3, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(4, 'absolute inset-0')}</div>
-        <div className="aspect-[4/5] relative col-span-2 md:col-span-1 md:row-span-2">{tile(5, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(6, 'absolute inset-0')}</div>
-        <div className="aspect-square relative">{tile(7, 'absolute inset-0')}</div>
-      </div>
-
-      {open !== null &&
-      <div className="fixed inset-0 z-[80] bg-[#1F1A14]/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10"
-      onClick={() => setOpen(null)}>
-          <button onClick={(e) => {e.stopPropagation();setOpen(null);}}
-        className="absolute top-5 right-5 w-11 h-11 rounded-full border border-white/20 text-white/90 hover:border-white hover:bg-white/10 flex items-center justify-center transition" aria-label="Cerrar">
-            <X size={18} />
-          </button>
-          <button onClick={(e) => {e.stopPropagation();setOpen((i) => (i - 1 + galeria.length) % galeria.length);}}
-        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 text-white/90 hover:border-white hover:bg-white/10 flex items-center justify-center transition" aria-label="Anterior">
-            <ArrowLeft size={18} />
-          </button>
-          <button onClick={(e) => {e.stopPropagation();setOpen((i) => (i + 1) % galeria.length);}}
-        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 text-white/90 hover:border-white hover:bg-white/10 flex items-center justify-center transition" aria-label="Siguiente">
-            <ArrowRight size={18} />
-          </button>
-          <div className="max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
-            <img src={galeria[open].img} alt={galeria[open].tag}
-          className="w-full max-h-[80vh] object-contain rounded-xl" />
-            <div className="mt-4 text-center">
-              <span className="inline-block font-body text-[12px] uppercase tracking-[0.2em] text-white/80 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full">
-                {galeria[open].tag}
-              </span>
-            </div>
+      </button>
+      <ExpandableScreenContent className="bg-[#1F1A14]">
+        <div className="w-full h-full flex flex-col items-center justify-center p-6 md:p-12">
+          <img src={g.img} alt={g.tag}
+            className="max-w-full max-h-[80vh] object-contain rounded-xl" />
+          <div className="mt-5">
+            <span className="inline-block font-body text-[12px] uppercase tracking-[0.2em] text-white/80 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full">
+              {g.tag}
+            </span>
           </div>
         </div>
-      }
-    </>);
+      </ExpandableScreenContent>
+    </>
+  );
+}
 
+function GaleriaSection() {
+  const tile = (i, extraClass = '') => (
+    <ExpandableScreen layoutId={`gallery-img-${i}`} contentRadius="20px" animationDuration={0.3}>
+      <GalleryTileInner g={galeria[i]} extraClass={extraClass} />
+    </ExpandableScreen>
+  );
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" style={{ gridAutoRows: 'minmax(120px, 1fr)' }}>
+      <div className="col-span-2 row-span-2 aspect-[4/5] md:aspect-auto relative">{tile(0, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(1, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(2, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(3, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(4, 'absolute inset-0')}</div>
+      <div className="aspect-[4/5] relative col-span-2 md:col-span-1 md:row-span-2">{tile(5, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(6, 'absolute inset-0')}</div>
+      <div className="aspect-square relative">{tile(7, 'absolute inset-0')}</div>
+    </div>
+  );
 }
 
 // ---------- FAQ ----------
@@ -803,13 +782,11 @@ function SomosPiedraLanding() {
                     )}
                   </nav>
                   <div className="flex flex-col gap-2.5 border-t border-[#1F1A14]/10 pt-5">
-                    <TextureButton variant="brand" size="pill" asChild>
-                      <a href="#cotizacion" onClick={(e) => { setMobileMenuOpen(false); scrollToCotizacion(e); }}
-                        className="inline-flex items-center justify-center gap-2 font-medium text-[14px]">
-                        <MessageCircle size={15} />
-                        Pedir cotización
-                      </a>
-                    </TextureButton>
+                    <a href="#cotizacion" onClick={(e) => { setMobileMenuOpen(false); scrollToCotizacion(e); }}
+                      className="inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[14px] px-5 py-3 rounded-full transition">
+                      <MessageCircle size={15} />
+                      Pedir cotización
+                    </a>
                     <a href={heroWhatsAppLink} target="_blank" rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-2 border border-[#1F1A14]/20 text-[#1F1A14] hover:border-[#5A6B3F] hover:text-[#5A6B3F] font-medium text-[13.5px] px-5 py-3 rounded-full transition">
                       WhatsApp directo
@@ -869,13 +846,10 @@ function SomosPiedraLanding() {
           </p>
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3 fade-up delay-700">
-            <TextureButton variant="brand" size="pill" asChild>
-              <a href="#cotizacion" onClick={scrollToCotizacion}
-                className="inline-flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] px-6 py-3.5">
-                <MessageCircle size={16} />
-                Pedir asesoramiento
-                <ArrowRight size={16} />
-              </a>
+            <TextureButton variant="brand" size="pill" onClick={scrollToCotizacion}>
+              <MessageCircle size={16} />
+              Pedir asesoramiento
+              <ArrowRight size={16} />
             </TextureButton>
             <a href="#productos"
             className="inline-flex items-center justify-center gap-1.5 text-white font-medium text-[14px] md:text-[15px] px-2 py-3 transition hover:text-[#A8B97F] border-b border-white/40 self-start sm:self-center">
@@ -921,8 +895,9 @@ function SomosPiedraLanding() {
           {/* Mobile: scroll horizontal con snap. Desktop: grilla 4 columnas. */}
           <Reveal className="flex md:grid md:grid-cols-4 gap-3 md:gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-5 px-5 md:mx-0 md:px-0 pb-3 md:pb-0 hide-scrollbar">
             {trustItems.map((item, i) =>
-            <div key={i}
-              className="snap-start shrink-0 w-[78%] sm:w-[60%] md:w-auto bg-white rounded-2xl p-5 md:p-6 shadow-[0_6px_20px_-8px_rgba(31,26,20,0.18),0_2px_6px_-2px_rgba(31,26,20,0.08)] border border-[#1F1A14]/[0.06] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_rgba(31,26,20,0.22),0_3px_8px_-2px_rgba(31,26,20,0.10)] transition duration-300 flex flex-col gap-3">
+            <MinimalCard key={i}
+              className="snap-start shrink-0 w-[78%] sm:w-[60%] md:w-auto hover:-translate-y-0.5 transition duration-300 bg-white hover:bg-white dark:bg-white dark:hover:bg-white dark:text-[#1F1A14]">
+              <div className="p-4 flex flex-col gap-3">
                 <div className="flex-shrink-0 w-11 h-11 rounded-full bg-[#EDE5D4] flex items-center justify-center">
                   <item.icon size={18} strokeWidth={1.6} className="text-[#5A6B3F]" />
                 </div>
@@ -931,6 +906,7 @@ function SomosPiedraLanding() {
                   <p className="font-body text-[13px] md:text-[13.5px] text-[#3D352B]/85 leading-snug">{item.text}</p>
                 </div>
               </div>
+            </MinimalCard>
             )}
           </Reveal>
         </div>
@@ -1204,14 +1180,12 @@ function SomosPiedraLanding() {
           </Reveal>
 
           <Reveal delay={200} className="mt-12 md:mt-14 flex justify-center">
-            <TextureButton variant="brand" size="pill" asChild>
-              <a href="#cotizacion" onClick={scrollToCotizacion}
-                className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-7 py-4">
-                <MessageCircle size={17} />
-                Coordinar visita al showroom
-                <ArrowRight size={17} />
-              </a>
-            </TextureButton>
+            <a href="#cotizacion" onClick={scrollToCotizacion}
+            className="group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-7 py-4 rounded-full transition shadow-lg shadow-black/10">
+              <MessageCircle size={17} />
+              Coordinar visita al showroom
+              <ArrowRight size={17} className="group-hover:translate-x-1 transition" />
+            </a>
           </Reveal>
         </div>
       </section>
@@ -1312,16 +1286,12 @@ function SomosPiedraLanding() {
               </li>
             </ul>
 
-            <div className="mt-10">
-              <TextureButton variant="brand" size="pill" asChild>
-                <a href="https://www.google.com/maps/search/Somos+Piedra+Belgrano+3090+Neuqu%C3%A9n" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-6 py-3.5">
-                  <MapPin size={16} />
-                  Cómo llegar al showroom
-                  <ArrowRight size={16} />
-                </a>
-              </TextureButton>
-            </div>
+            <a href="https://www.google.com/maps/search/Somos+Piedra+Belgrano+3090+Neuqu%C3%A9n" target="_blank" rel="noopener noreferrer"
+            className="mt-10 group inline-flex items-center justify-center gap-2 bg-[#5A6B3F] hover:bg-[#4A5832] text-white font-medium text-[15px] px-6 py-3.5 rounded-full transition shadow-md shadow-black/10">
+              <MapPin size={16} />
+              Cómo llegar al showroom
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition" />
+            </a>
           </Reveal>
 
           <Reveal delay={100}>

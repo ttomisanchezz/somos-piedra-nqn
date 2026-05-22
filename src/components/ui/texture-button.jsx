@@ -19,7 +19,7 @@ const buttonVariantsOuter = cva("", {
         "group/texture-button w-full border-[1px] dark:border-[2px] border-black/20 bg-white/50 dark:border-neutral-950 dark:bg-neutral-600/80 p-[1px] active:bg-neutral-200 dark:active:bg-neutral-800 hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-600/50 dark:hover:to-neutral-600/70",
       icon: "group/texture-button rounded-full border dark:border-neutral-950 border-black/10 dark:bg-neutral-600/50 bg-white/50 p-[1px] active:bg-neutral-200 dark:active:bg-neutral-800 hover:bg-gradient-to-t hover:from-neutral-100 to-white dark:hover:from-neutral-700 dark:hover:to-neutral-600",
       brand:
-        "w-full border border-[#4A5832] bg-gradient-to-b from-[#6A7D4A] to-[#4A5832] p-[1px] transition duration-300 ease-in-out shadow-lg shadow-black/20",
+        "w-auto border border-[#4A5832] bg-gradient-to-b from-[#6A7D4A] to-[#4A5832] p-[1px] transition duration-300 ease-in-out shadow-lg shadow-black/20",
     },
     size: {
       sm: "rounded-[6px]",
